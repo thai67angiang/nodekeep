@@ -1,0 +1,63 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/scss/index.scss" />
+
+    <title>tahi</title>
+  </head>
+  <body>
+    
+    <div class="content">
+      <table class="keepers">
+        <div class="kepers-header">Ghi Chú</div>
+      <tbody>
+        <% for(let i=0; i < data.length; i++) { %>
+          <!-- <tr class="keepers-content">
+            <td><%= i + 1 %></td>
+               <td class="keepers-content_2"><%= data[i].content %></td>
+          </tr> -->
+          <% if (data[i].id == id) { %>  
+              <form action="/update_keepers" method="POST">
+                <input type='text' name="content" value="<%= data[i].content %>" />
+                <input type="text" value="<%= data[i].id %>" hidden name="id" />   
+                <button type="submit">Save</button>
+             </form>    
+          <% } %>
+          <% if (data[i].id != id ) { %>
+            <tr class="keepers-content">
+              <td><%= i + 1 %></td>
+                 <td class="keepers-content_2"><%= data[i].content %></td>
+            </tr> 
+            <form action="/edit-keepers/<%= data[i].id %>" method="GET">
+              <button type="submit">Edit</button>
+            </form>  
+          <% }%>
+         <form action="/delete-keepers" method="POST">
+           <input
+            type="text"
+            hidden
+            value="<%= data[i].id %>"
+            name="keepers"
+          />
+          <button type="submit">Delete</button>
+         </form>
+        <% } %>
+      </tbody>    
+      </table>
+      <div class="create-user-container">
+        <form
+          action="/create-keep"
+          method="POST"
+        >
+          <div>
+            <input type="text" name="content_keep" />
+          </div>
+          <div>
+            <button type="submit" class="btn-submit">Submit</button>
+          </div>
+        </form>
+      </div>
+  </body>
+</html>
